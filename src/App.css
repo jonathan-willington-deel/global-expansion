@@ -291,7 +291,6 @@ body {
 
 /* Group explanation styling */
 .group-explanation {
-  font-family: Inter, Arial, Helvetica, sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
@@ -306,7 +305,6 @@ body {
 
 .card-description {
   margin: 0px;
-  font-family: Inter, Arial, Helvetica, sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
@@ -649,12 +647,10 @@ body {
 }
 
 .country-name {
-  font-family: Inter;
   font-size: 14px;
   letter-spacing: -0.2px;
   font-weight: 600;
   color: #1f2937;
-  margin-bottom: 4px;
   line-height: 20px;
   /* max-width: 84%; */
 }
@@ -668,7 +664,6 @@ body {
 
 .country-details {
   margin: 0px;
-  font-family: Inter, Arial, Helvetica, sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
@@ -702,6 +697,7 @@ body {
   flex-direction: column;
   align-items: flex-start;
   gap: 2px;
+  margin-bottom: 8px;
 }
 
 .dashboard-card--compensation_management .metric-value {
@@ -711,6 +707,7 @@ body {
 .metric-row--header {
   padding: 4px 0;
   position: relative;
+  margin-top: 8px;
 }
 
 .metric-row--header .metric-value {
@@ -727,7 +724,6 @@ body {
 }
 
 .metric-label {
-  font-family: Inter, Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 9px;
   line-height: 10px;
@@ -737,7 +733,6 @@ body {
 }
 
 .metric-value {
-  font-family: Inter, Arial, Helvetica, sans-serif;
   font-weight: 600;
   font-size: 11px;
   line-height: 12px;
@@ -998,7 +993,6 @@ body {
   user-select: none;
   vertical-align: middle;
   appearance: none;
-  font-family: Inter, Arial, Helvetica, sans-serif;
   font-weight: 500;
   color: rgb(27, 27, 27);
   flex: 1;
@@ -1117,7 +1111,6 @@ body {
 }
 
 .compliance-article-description {
-  font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 14px;
   color: #6b7280;
   margin: 0;
