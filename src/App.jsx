@@ -23,6 +23,9 @@ function App() {
   const [expandedAccordions, setExpandedAccordions] = useState({})
   const [selectedComplianceArticle, setSelectedComplianceArticle] = useState(null)
 
+  // Debug: Log that the App component is rendering
+  console.log('App component rendering, loading:', loading, 'mapData:', !!mapData)
+
   // Country coordinates for pins
   const countryCoordinates = {
     'United States': [-98.5795, 39.8283],
