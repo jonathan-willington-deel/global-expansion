@@ -6,7 +6,7 @@ import { Button } from './components/ui/button'
 import TopNav from './components/TopNav'
 
 import { AlertTriangle, TrendingUp, Users, Building2, DollarSign, MapPin } from 'lucide-react'
-// import { getFlag } from 'country-flag-icons/unicode'
+import Flag from './components/Flag'
 import './App.css'
 
 function App() {
@@ -420,7 +420,7 @@ function App() {
                   new mapboxgl.Popup({ offset: 25 })
                     .setHTML(`
                       <div style="padding: 12px;">
-                        <h3 style="margin: 0 0 8px 0; color: ${groupColor};">${country.flag} ${country.country}</h3>
+                        <h3 style="margin: 0 0 8px 0; color: ${groupColor}; display: flex; align-items: center;">${getFlagHTML(country.country, country.code)} ${country.country}</h3>
                         <p style="margin: 0 0 5px 0; font-weight: 600;">${country.category}</p>
                         <p style="margin: 0 0 8px 0; font-size: 13px; color: #666;">${country.issue}</p>
                         ${country.recommended_actions?.[0] ? `
@@ -572,11 +572,31 @@ function App() {
     }
   }
 
-  // Get country flag (simplified for debugging)
-  const getCountryFlag = (countryName) => {
-    return <div className="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold text-gray-600">
-      {countryName.charAt(0)}
-    </div>
+  // Country code mapping for flags
+  const countryCodeMap = {
+    'United States': 'US',
+    'Netherlands': 'NL', 
+    'Germany': 'DE',
+    'India': 'IN',
+    'Ukraine': 'UA',
+    'Philippines': 'PH',
+    'Paraguay': 'PY',
+    'Argentina': 'AR',
+    'South Africa': 'ZA'
+  }
+
+  // Get country flag HTML for popups (using circular flags from circle-flags)
+  const getFlagHTML = (countryName, countryCode) => {
+    const code = countryCode || countryCodeMap[countryName]
+    if (!code) return countryName?.charAt(0) || '?'
+    
+    // Use circle-flags SVG for circular appearance in popups
+    return `<img src="https://hatscripts.github.io/circle-flags/flags/${code.toLowerCase()}.svg" alt="${countryName} flag" style="width: 20px; height: 20px; object-fit: cover; border-radius: 50%; margin-right: 8px; display: inline-block; vertical-align: middle;" />`
+  }
+
+  // Get country flag (React component)
+  const getCountryFlag = (countryName, countryCode) => {
+    return <Flag countryName={countryName} countryCode={countryCode} size="w-6 h-6" />
   }
 
   // Toggle group expansion
@@ -847,7 +867,7 @@ function App() {
                       >
                         <div className="country-header">
                           <div className="country-flag">
-                            <div className="country-code">{item.flag}</div>
+                            {getCountryFlag(item.country, item.code)}
                           </div>
                           <div className="country-info">
                             <h4 className="country-name">
