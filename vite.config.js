@@ -7,7 +7,6 @@ export default defineConfig({
   base: '/global-expansion/',
   define: {
     __DEFINES__: '{}',
-    global: 'globalThis',
   },
   build: {
     target: 'es2020',
