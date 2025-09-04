@@ -11,6 +11,7 @@ export default defineConfig({
     __HMR_CONFIG_NAME__: '"vite"',
     __HMR_PORT__: '24678',
     __HMR_HOSTNAME__: '"localhost"',
+    __HMR_PROTOCOL__: '"ws"',
     __SERVER_HOST__: '"localhost"',
     __SERVER_PORT__: '5173',
     __DEV__: 'false',
