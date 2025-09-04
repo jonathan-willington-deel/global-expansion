@@ -1,0 +1,982 @@
+/* ===== FONT FACE DECLARATIONS ===== */
+@font-face {
+  font-family: 'Bagoss';
+  src: url('/Bagoss-Medium.woff2') format('woff2'),
+       url('/Bagoss-Medium.woff') format('woff'),
+       url('/Bagoss-Medium.ttf') format('truetype'),
+       url('/Bagoss-Medium.otf') format('opentype'),
+       url('/Bagoss-Medium.eot') format('embedded-opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== CSS CUSTOM PROPERTIES ===== */
+:root {
+  --dui-palette-background-gradientDefault-0: #e1d7fb;
+  --dui-palette-background-gradientDefault-26: rgba(225, 215, 251, 0.74);
+  --dui-palette-background-gradientDefault-88: rgba(225, 215, 251, 0.12);
+  --dui-palette-background-gradientDefault-100: rgba(225, 215, 251, 0);
+}
+
+/* ===== RESET & BASE STYLES ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== FIXED GRADIENT BACKGROUND ===== */
+.css-120cenb {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 172px;
+  width: 100%;
+  background: linear-gradient(180deg, var(--dui-palette-background-gradientDefault-0) 0%, var(--dui-palette-background-gradientDefault-26) 54%, var(--dui-palette-background-gradientDefault-88) 88.48%, var(--dui-palette-background-gradientDefault-100) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f7f5f2;
+  line-height: 1.5;
+  color: rgb(97, 97, 97);
+}
+
+/* ===== LAYOUT CONTAINERS ===== */
+.dashboard-app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f7f5f2;
+  padding: 0 24px 24px 24px;
+  box-sizing: border-box;
+}
+
+.dashboard-app .topnav {
+  width: 100%;
+  max-width: 1400px;
+}
+
+.dashboard-main {
+  display: flex;
+  width: 100%;
+  height: calc(90vh - 60px);
+  max-width: 1400px;
+  overflow: hidden;
+  position: relative;
+  z-index: 5;
+  margin-top: 24px;
+  gap: 16px;
+}
+
+/* ===== MAP SECTION ===== */
+.dashboard-map {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+  background-color: rgba(247, 245, 242, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 0px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.map-display {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  background: 
+    radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(2px 2px at 160px 30px, #eee, transparent),
+    radial-gradient(1px 1px at 200px 90px, #fff, transparent),
+    radial-gradient(1px 1px at 240px 50px, rgba(255,255,255,0.7), transparent),
+    radial-gradient(2px 2px at 280px 10px, #eee, transparent),
+    radial-gradient(1px 1px at 320px 70px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 360px 40px, #fff, transparent),
+    linear-gradient(135deg, #0c1445 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #1a1a2e 100%);
+  background-size: 400px 400px;
+}
+
+/* Ensure Mapbox map is visible */
+.mapboxgl-map {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+}
+
+.mapboxgl-canvas-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.mapboxgl-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+}
+
+.map-legend {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  z-index: 10;
+}
+
+.legend-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-text {
+  font-size: 12px;
+  color: #374151;
+}
+
+.map-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 5;
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.loading-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.loading-text {
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.loading-subtext {
+  color: #9ca3af;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* ===== SIDEBAR SECTION ===== */
+.dashboard-sidebar {
+  width: 380px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+}
+
+.sidebar-header {
+  padding: 32px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0;
+  border-radius: 16px 16px 0 0;
+}
+
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.sidebar-title {
+  font-family: 'Bagoss', sans-serif;
+  font-size: 26px;
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+
+.sidebar-subtitle {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ===== CARD COMPONENTS ===== */
+.dashboard-card {
+  background-color: rgb(250, 250, 250);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  border: 1px solid transparent;
+  padding: 16px;
+}
+
+/* Status-based card styling */
+.dashboard-card--critical {
+  background-color: rgb(250, 250, 250) !important;
+  border-color: transparent;
+}
+
+/* HIGH styling moved to enhanced section below */
+
+/* GROWTH styling moved to enhanced section below */
+
+/* OPPORTUNITY styling moved to enhanced section below */
+
+.card-header {
+  margin-bottom: 4px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title {
+  font-family: inter;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  letter-spacing: -0.5px;
+}
+
+.clickable-header {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.clickable-header:hover {
+  opacity: 0.8;
+}
+
+/* Group explanation styling */
+.group-explanation {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgb(97, 97, 97);
+  margin: 16px 0 0 0;
+  padding: 0;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  word-wrap: break-word;
+}
+
+.card-description {
+  margin: 0px;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0px;
+  color: rgb(97, 97, 97);
+}
+
+.card-content {
+  /* Content inherits padding from parent card */
+}
+
+/* ===== STATISTICS GRIDS ===== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.stats-grid:last-child {
+  margin-bottom: 0;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.stat-item--primary {
+  background-color: #f3f4f6;
+}
+
+.stat-item--success {
+  background-color: #f0fdf4;
+}
+
+.stat-item--danger {
+  background-color: #fef2f2;
+}
+
+.stat-item--warning {
+  background-color: #fffbeb;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.stat-value--primary {
+  color: #1f2937;
+}
+
+.stat-value--success {
+  color: #059669;
+}
+
+.stat-value--danger {
+  color: #dc2626;
+}
+
+.stat-value--warning {
+  color: #d97706;
+}
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.stat-label--primary {
+  color: #6b7280;
+}
+
+.stat-label--success {
+  color: #059669;
+}
+
+.stat-label--danger {
+  color: #dc2626;
+}
+
+.stat-label--warning {
+  color: #d97706;
+}
+
+/* ===== COUNTRY GROUPINGS ===== */
+.country-group {
+  margin-bottom: 24px;
+}
+
+.group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.group-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: none;
+}
+
+/* Status-based title styling */
+.dashboard-card--critical .group-title {
+  color: rgb(239, 68, 68);
+}
+
+.dashboard-card--high .group-title {
+  color: rgb(237, 94, 42);
+}
+
+.dashboard-card--growth .group-title {
+  color: #7c3aed;
+}
+
+.dashboard-card--opportunity .group-title {
+  color: #3b82f6;
+}
+
+.dashboard-card--compensation_management .group-title {
+  color: #059669;
+}
+
+.group-icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+.group-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.group-counter-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -10px;
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Status-based icon styling - with colored backgrounds closer to full color */
+.dashboard-card--critical .group-icon {
+  background-color: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.dashboard-card--high .group-icon {
+  background-color: rgba(237, 94, 42, 0.15);
+  border: 1px solid rgba(237, 94, 42, 0.3);
+}
+
+.dashboard-card--growth .group-icon {
+  background-color: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.dashboard-card--opportunity .group-icon {
+  background-color: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.dashboard-card--compensation_management .group-icon {
+  background-color: rgba(147, 51, 234, 0.15);
+  border: 1px solid rgba(147, 51, 234, 0.3);
+}
+
+/* Status-based counter badge styling */
+.dashboard-card--critical .group-counter-badge {
+  background-color: black;
+  color: white;
+}
+
+.dashboard-card--high .group-counter-badge {
+  background-color: black;
+  color: white;
+}
+
+.dashboard-card--growth .group-counter-badge {
+  background-color: black;
+  color: white;
+}
+
+.dashboard-card--opportunity .group-counter-badge {
+  background-color: black;
+  color: white;
+}
+
+.dashboard-card--compensation_management .group-counter-badge {
+  background-color: black;
+  color: white;
+}
+
+.dashboard-card--corporate_governance .group-counter-badge {
+  background-color: black;
+  color: white;
+}
+
+/* New color definitions for enhanced status styling */
+.dashboard-card--high {
+  background-color: rgb(250, 250, 250) !important;
+  border-color: transparent;
+}
+
+.dashboard-card--opportunity {
+  background-color: rgb(250, 250, 250) !important;
+  border-color: transparent;
+}
+
+.dashboard-card--growth {
+  background-color: rgb(250, 250, 250) !important;
+  border-color: transparent;
+}
+
+.dashboard-card--compensation_management {
+  background-color: rgb(250, 250, 250) !important;
+  border-color: transparent;
+}
+
+.dashboard-card--corporate_governance {
+  background-color: rgb(250, 250, 250) !important;
+  border-color: transparent;
+}
+
+.group-stats {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.group-stat-badge {
+  background-color: #f3f4f6;
+  color: #374151;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ===== COUNTRY CARDS ===== */
+.country-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.country-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.country-item:hover {
+  transform: translateY(-2px);
+}
+
+.country-item--selected {
+  border-color: #000000;
+}
+
+.country-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.country-flag {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.country-code {
+  font-size: 22px;
+  font-weight: 600;
+  color: #374151;
+  text-transform: none;
+}
+
+.country-info {
+  flex: 1;
+}
+
+.country-name {
+  font-family: 'Bagoss', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.country-details {
+  margin: 0px;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0px;
+  color: rgb(97, 97, 97);
+  margin-bottom: 8px;
+}
+
+/* Growth metrics styling */
+.growth-metrics {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  gap: 24px;
+}
+
+/* Compensation management specific - stack vertically */
+.dashboard-card--compensation_management .metric-row {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.dashboard-card--compensation_management .metric-value {
+  text-align: left;
+}
+
+.metric-row--header {
+  padding: 4px 0;
+  position: relative;
+}
+
+.metric-row--header .metric-value {
+  margin-right: 24px;
+}
+
+.metric-row--header {
+  padding: 4px 0;
+  position: relative;
+}
+
+.metric-row:last-child {
+  border-bottom: none;
+}
+
+.metric-label {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 9px;
+  line-height: 10px;
+  color: rgb(97, 97, 97);
+  text-transform: initial;
+  letter-spacing: 0px;
+}
+
+.metric-value {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 12px;
+  color: rgb(27, 27, 27);
+  text-align: right;
+}
+
+.metric-value.reference-article {
+  color: rgb(31, 116, 179);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.expand-icon {
+  color: rgb(31, 116, 179);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.expand-icon:hover {
+  background-color: rgba(31, 116, 179, 0.1);
+  transform: scale(1.1);
+}
+
+.expand-icon.expanded {
+  transform: rotate(180deg);
+}
+
+.metrics-content {
+  transition: all 0.3s ease;
+  overflow: hidden;
+  max-height: 500px;
+  opacity: 1;
+}
+
+.metrics-content.collapsed {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Trend indicator styling */
+.trend-indicator {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 2px 4px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trend-indicator--high {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.trend-indicator--low {
+  color: #10b981;
+  background-color: rgba(16, 185, 129, 0.1);
+}
+
+/* Accordion button styling */
+.accordion-button {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+  position: absolute;
+  right: 0;
+}
+
+.accordion-button:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Accordion content */
+.metric-accordion {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.growth-metrics.expanded .metric-accordion {
+  max-height: 200px;
+}
+
+.growth-metrics.expanded .accordion-button {
+  transform: rotate(180deg);
+}
+
+/* Section accordion button styling */
+.section-accordion-button {
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.section-accordion-button:hover {
+  background-color: rgba(107, 114, 128, 0.1);
+}
+
+.section-accordion-button.expanded {
+  transform: rotate(180deg);
+}
+
+/* Section content collapsed state */
+.card-content.collapsed {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.card-content {
+  max-height: 1000px;
+  transition: max-height 0.3s ease;
+}
+
+.country-actions {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  background-color: white;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 12px;
+  height: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-button:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* ===== SPECIALIZED CARDS ===== */
+.dashboard-card--crisis {
+  border-color: #fecaca;
+}
+
+.dashboard-card--crisis .card-title {
+  color: #dc2626;
+}
+
+.dashboard-card--financial {
+  border-color: #bbf7d0;
+}
+
+.dashboard-card--financial .card-title {
+  color: #059669;
+}
+
+/* ===== FINANCIAL IMPACT SECTION ===== */
+.financial-summary {
+  text-align: center;
+  padding: 16px;
+  background-color: #eff6ff;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.financial-summary:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== BADGES ===== */
+.status-badge {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+}
+
+.status-badge--secondary {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+
+
+/* ===== COUNTRY ACTIONS ===== */
+.country-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.country-actions button,
+.country-actions .btn,
+.country-actions .country-action-btn {
+  background-color: rgb(242, 242, 242);
+  min-height: 32px;
+  min-width: 72px;
+  font-size: 12px;
+  line-height: 14px;
+  outline: none;
+  margin: 0;
+  text-decoration: none;
+  border: none;
+  transition: background-color 250ms ease;
+  padding: 8px 16px;
+  border-radius: 8px;
+  position: relative;
+  box-sizing: border-box;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  appearance: none;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  color: rgb(27, 27, 27);
+  flex: 1;
+  width: 100%;
+}
+
+/* Critical section primary CTA styling */
+.dashboard-card--critical .country-actions button,
+.dashboard-card--critical .country-actions .btn,
+.dashboard-card--critical .country-actions .country-action-btn {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* Override Button component's inline-flex behavior */
+.country-actions .country-action-btn {
+  display: flex !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+/* ===== MAPBOX SPECIFIC STYLES ===== */
+.mapboxgl-map {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.mapboxgl-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1200px) {
+  .dashboard-main {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-sidebar {
+    width: 280px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

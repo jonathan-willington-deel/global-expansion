@@ -1,0 +1,93 @@
+:root {
+  --topnav-height: 72px;
+  --topnav-bg: var(--color-surface, #f6f7fb);
+  --topnav-border: var(--color-border, #eaecef);
+  --topnav-text: var(--color-text, #1f2937);
+  --topnav-muted: var(--color-muted, #6b7280);
+  --topnav-primary: var(--color-primary, #4f46e5);
+}
+
+.topnav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  height: var(--topnav-height);
+  padding: 0 16px;
+  color: var(--topnav-text);
+  position: relative;
+  z-index: 10;
+}
+
+.topnav__left, .topnav__center, .topnav__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.topnav__center { justify-content: center; }
+.topnav__right { justify-content: flex-end; gap: 8px; }
+
+.topnav__logo { color: var(--topnav-text); display: inline-flex; }
+
+.topnav__divider {
+  width: 1px;
+  height: 28px;
+  background: var(--topnav-border);
+}
+
+.topnav__org {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+.topnav__org-avatar { width: 32px; height: 32px; border-radius: 50%; overflow: hidden; }
+.topnav__org-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.topnav__org-text { display: flex; flex-direction: column; line-height: 1.1; }
+.topnav__org-name { font-weight: 600; }
+.topnav__org-sub { font-size: 12px; color: var(--topnav-muted); }
+.topnav__chevron { display: inline-flex; color: var(--topnav-muted); }
+.topnav__chevron svg { width: 20px; height: 20px; }
+
+.topnav__link, .topnav__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: var(--topnav-text);
+  text-decoration: none;
+}
+/* Removed hover backgrounds */
+.topnav__link-icon svg { width: 20px; height: 24px; }
+.topnav__link-label { font-weight: 500; font-size: 14px; }
+
+.topnav__iconbtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+}
+.topnav__icon svg { width: 24px; height: 24px; }
+.topnav__kbd { font-size: 12px; color: var(--topnav-muted); }
+.topnav__iconbtn--badge { padding-right: 12px; }
+.topnav__badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--topnav-primary);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 12px;
+  padding: 2px 6px;
+}
+
+.topnav__avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 700;
+}
+

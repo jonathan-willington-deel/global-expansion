@@ -1,0 +1,62 @@
+# Cursor Rules for React UI Playground
+
+## Data Structure Consistency Rules
+
+### 1. JSON Data Structure Changes
+- **ALWAYS** update React components when changing JSON data structure
+- **NEVER** change data structure without updating corresponding component logic
+- **VERIFY** all references to old data paths are updated before committing
+
+### 2. Data Field Mapping
+- When renaming fields in JSON, use search/replace across ALL files
+- Update both data source and component references simultaneously
+- Maintain consistent naming conventions between data and components
+
+### 3. Component Data Access Patterns
+- **REQUIRED**: Update data fetching logic when data structure changes
+- **REQUIRED**: Update rendering logic when data structure changes
+- **REQUIRED**: Update any hardcoded data references
+
+### 4. Before Making Data Structure Changes
+1. Search for ALL usages of the old structure
+2. Plan component updates before changing data
+3. Test both data and component changes together
+4. Use consistent naming patterns
+
+### 5. Common Data Structure Patterns
+- Arrays → Objects: Update `.map()` calls to `Object.entries()`
+- Field renames: Update all property access patterns
+- Nested changes: Update all dot notation paths
+
+### 6. Validation Checklist
+- [ ] Data structure changed
+- [ ] Component data fetching updated
+- [ ] Component rendering logic updated
+- [ ] All hardcoded references updated
+- [ ] Console.log statements updated
+- [ ] Tested data loading and display
+
+### 7. File Dependencies
+- `public/map.json` ↔ `src/App.jsx`
+- Any data structure changes must update both files
+- Use grep search to find all references before changing
+
+### 8. Error Prevention
+- Always check console for "undefined" errors after data changes
+- Verify data is being fetched and processed correctly
+- Test component rendering with new data structure
+
+## Example: Recent Issue
+- Changed `map_data` from array to object with status containers
+- Forgot to update React component from `data.country_groupings` to `data.map_data`
+- Result: Component couldn't access data, showing "undefined"
+
+## Quick Fix Commands
+```bash
+# Find all references to old data structure
+grep -r "country_groupings" src/
+grep -r "old_field_name" src/
+
+# Update all references at once
+find src/ -name "*.jsx" -exec sed -i '' 's/old_field_name/new_field_name/g' {} \;
+```

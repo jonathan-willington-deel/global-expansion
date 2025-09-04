@@ -1,0 +1,261 @@
+{
+  "global_summary": {
+    "total_headcount": 127,
+    "deel_managed": 47,
+    "outside_deel": 80,
+    "contractors_at_risk": 24,
+    "foreign_entities": 3,
+    "annual_compliance_exposure": "£1.2M"
+  },
+  "map_data": {
+    "CRITICAL": {
+      "padding": "tight",
+      "countries": [
+        {
+          "country": "United States",
+          "code": "US",
+          "flag": "🇺🇸",
+          "category": "Contractor Compliance Risk",
+          "issue": "5 contractors at critical risk of IRS reclassification. Immediate action required to avoid up to $125K in penalties and backdated tax liabilities.",
+          "workers_at_risk": {
+            "count": "5 contractors",
+            "severity_rating": "Critical",
+            "suggestion": "Immediate conversion to PEO status required to avoid IRS penalties and backdated tax liabilities."
+          },
+          "reference_article": {
+            "title": "IRS Contractor Classification Guidelines 2024",
+            "url": "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee"
+          },
+          "recommended_actions": [
+            {
+              "action": "Change to PEO",
+              "description": "Move 5 contractors to PEO to avoid penalties and backdated taxes.",
+              "urgency": "Immediate",
+              "deel_feature": "contractor_conversion",
+              "conversion_cost": "£599/month per employee"
+            }
+          ]
+        },
+        {
+          "country": "Netherlands",
+          "code": "NL",
+          "flag": "🇳🇱",
+          "category": "Contractor Compliance Risk",
+          "issue": "4 contractors automatically deemed employees under DBA Act. Convert within 7 days to avoid 4 years of retroactive penalties and social security liabilities.",
+          "workers_at_risk": {
+            "count": "4 contractors",
+            "severity_rating": "High",
+            "suggestion": "Convert to direct employees within 7 days to comply with DBA Act and avoid retroactive penalties."
+          },
+          "reference_article": {
+            "title": "Dutch DBA Act Employment Classification",
+            "url": "https://www.government.nl/topics/self-employed-persons-without-personnel-zzp/new-evaluation-of-employment-relationships-dba"
+          },
+          "recommended_actions": [
+            {
+              "action": "Change to Employees",
+              "description": "Convert 4 contractors to direct employees on existing BV entity.",
+              "urgency": "7 days",
+              "deel_feature": "contractor_conversion"
+            }
+          ]
+        },
+        {
+          "country": "Germany",
+          "code": "DE",
+          "flag": "🇩🇪",
+          "category": "Contractor Compliance Risk",
+          "issue": "3 contractors at high risk of Scheinselbständigkeit violations. German authorities increasingly strict on employment classification - immediate EOR conversion recommended.",
+          "workers_at_risk": {
+            "count": "3 contractors",
+            "severity_rating": "High",
+            "suggestion": "Switch to EOR model immediately to ensure compliance with German employment regulations."
+          },
+          "reference_article": {
+            "title": "Scheinselbständigkeit Compliance Guide 2024",
+            "url": "https://www.gesetze-im-internet.de/sgb_4/__7.html"
+          },
+          "recommended_actions": [
+            {
+              "action": "Convert",
+              "description": "Switch 3 contractors to EOR immediately.",
+              "deel_feature": "contractor_conversion"
+            }
+          ]
+        }
+      ]
+    },
+    "GROWTH": {
+      "padding": "tight",
+      "countries": [
+        {
+          "country": "India",
+          "code": "IN",
+          "flag": "🇮🇳",
+          "category": "Growth Opportunity",
+          "issue": "Exceptional talent pool delivering 4.8/5 performance with 65% cost savings. Prime opportunity to scale AI capabilities with world-class engineers.",
+          "growth_metrics": {
+            "current_headcount": "12 engineers",
+            "performance_rating": "4.8/5.0",
+            "cost_savings": "65% vs UK/US hires",
+            "time_to_hire": "14 days average",
+            "retention_rate": "94%",
+            "skill_availability": "High - AI/ML specialists"
+          },
+          "recommended_actions": [
+            {
+              "action": "View in Deel Talent",
+              "description": "Hire 18 more engineers to scale AI capabilities.",
+              "deel_feature": "talent_marketplace"
+            }
+          ]
+        },
+        {
+          "country": "Ukraine",
+          "code": "UA",
+          "flag": "🇺🇦",
+          "category": "Existing Market Expansion",
+          "issue": "Outstanding 4.9/5 performance with 96% retention and 70% cost savings. Untapped potential for blockchain and cybersecurity expansion in a proven market.",
+          "growth_metrics": {
+            "current_headcount": "8 engineers",
+            "performance_rating": "4.9/5.0",
+            "cost_savings": "70% vs UK/US hires",
+            "time_to_hire": "12 days average",
+            "retention_rate": "96%",
+            "skill_availability": "High - Blockchain/Security"
+          },
+          "recommended_actions": [
+            {
+              "action": "View in Deel Talent",
+              "description": "Hire 3 more specialists to strengthen the security and blockchain team.",
+              "deel_feature": "talent_marketplace"
+            }
+          ]
+        }
+      ]
+    },
+    "OPPORTUNITY": {
+      "padding": "tight",
+      "countries": [
+        {
+          "country": "Philippines",
+          "code": "PH",
+          "flag": "🇵🇭",
+          "category": "Talent Opportunity",
+          "issue": "Premium customer support and QA talent available at 75% cost savings. Ideal for 24/7 operations with English proficiency and cultural alignment.",
+          "recommended_actions": [
+            {
+              "action": "Add to workforce planning",
+              "description": "Open a support centre with 10 hires for 24/7 coverage.",
+              "deel_feature": "workforce_planning"
+            }
+          ]
+        }
+      ]
+    },
+    "COMPENSATION_MANAGEMENT": {
+      "padding": "tight",
+      "countries": [
+        {
+          "country": "Paraguay",
+          "code": "PY",
+          "flag": "🇵🇾",
+          "category": "Compensation Management",
+          "issue": "Compensation 23% above market rate. Optimize salary structure to improve cost efficiency while maintaining competitive positioning in local talent market.",
+          "comp_irregularity": "23% above market average",
+          "recommended_actions": [
+            {
+              "action": "Analyze",
+              "deel_feature": "compensation_analytics"
+            }
+          ]
+        },
+        {
+          "country": "Argentina",
+          "code": "AR",
+          "flag": "🇦🇷",
+          "category": "Compensation Management",
+          "issue": "Compensation 31% below market rate amid high inflation. Urgent salary adjustment required to retain talent and meet local employment standards.",
+          "comp_irregularity": "31% below market average",
+          "recommended_actions": [
+            {
+              "action": "Adjust",
+              "deel_feature": "compensation_analytics"
+            }
+          ]
+        }
+      ]
+    },
+    "CORPORATE_GOVERNANCE": {
+      "padding": "tight",
+      "countries": [
+        {
+          "country": "South Africa",
+          "code": "ZA",
+          "flag": "🇿🇦",
+          "category": "Entity Establishment",
+          "issue": "Establish local entity to unlock 28% corporate tax rate vs 35% withholding tax. Entity setup enables B-BBEE compliance and improved market access.",
+          "entity_setup": {
+            "setup_time": "6-8 weeks",
+            "annual_cost": "R45,000 (~$2,400)",
+            "tax_benefits": "28% corporate tax rate vs 35% withholding tax",
+            "compliance_score": "High - meets B-BBEE requirements"
+          },
+          "recommended_actions": [
+            {
+              "action": "Setup Entity with Deel",
+              "description": "Establish South African entity through Deel's entity management service.",
+              "deel_feature": "entity_setup"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "prioritised_actions": {
+    "immediate": [
+      {
+        "action": "Convert",
+        "description": "Move 24 high-risk contractors in US, France, Germany, and Netherlands to EOR/PEO.",
+        "risk_avoided": "£500K-£2M in penalties",
+        "deel_cost": "£15,600/month"
+      },
+      {
+        "action": "Onboard",
+        "description": "Migrate 3 foreign entities to Deel for unified management.",
+        "savings": "£40K annually",
+        "timeline": "Start immediately"
+      }
+    ],
+    "next_30_days": [
+      {
+        "action": "Launch",
+        "description": "Build support centre in the Philippines with 6 initial hires.",
+        "annual_savings": "£180K"
+      },
+      {
+        "action": "Migrate",
+        "description": "Move direct employees in Ireland, Spain, and Portugal onto Deel payroll.",
+        "employees": 15,
+        "admin_savings": "£60K annually"
+      }
+    ],
+    "strategic_60_90_days": [
+      {
+        "action": "Expand",
+        "description": "Scale India development team by 8 ML/AI engineers.",
+        "savings": "£320K vs UK hires"
+      },
+      {
+        "action": "Establish",
+        "description": "Set up a US entity for stock options and reduced per-employee costs.",
+        "cost": "£20K setup"
+      },
+      {
+        "action": "Build",
+        "description": "Create a Poland-based EU development centre with 5 new hires.",
+        "savings": "£150K vs UK hires"
+      }
+    ]
+  }
+}
