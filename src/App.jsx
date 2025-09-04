@@ -60,7 +60,7 @@ function App() {
     setLoading(true)
     console.log('Starting to fetch map data...')
     
-    fetch('/map.json')
+    fetch('/global-expansion/map.json')
       .then(response => {
         console.log('Fetch response status:', response.status)
         return response.json()
