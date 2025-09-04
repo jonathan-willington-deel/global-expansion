@@ -752,17 +752,66 @@ function App() {
 
   if (loading) {
     return (
-      <div className="w-screen h-screen flex justify-center bg-slate-50">
-        <div className="flex w-full h-screen max-w-7xl bg-white shadow-lg">
-          <div className="flex-1 relative">
-            <div ref={mapContainer} className="w-full h-full" />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/95 p-8 rounded-lg text-lg text-slate-700 shadow-lg">
-              Loading global workforce data...
+      <div className="dashboard-app">
+        <div className="css-120cenb"></div>
+        <TopNav />
+        <div className="dashboard-main">
+          {/* Map Container with Spinner */}
+          <div className="dashboard-map">
+            <div className="map-display">
+              <div className="map-loading">
+                <div className="loading-content">
+                  <div className="loading-spinner">
+                    <div className="spinner-ring"></div>
+                  </div>
+                  <div className="loading-text">Loading map...</div>
+                </div>
+              </div>
             </div>
           </div>
-          
-          <div className="w-[500px] bg-slate-50 border-l border-slate-200 flex items-center justify-center text-slate-600">
-            Loading dashboard...
+
+          {/* Sidebar with Skeletons */}
+          <div className="dashboard-sidebar">
+            <div className="sidebar-header">
+              <div className="skeleton-title"></div>
+            </div>
+            <div className="sidebar-content">
+              {/* Quick Actions Skeleton */}
+              <div className="dashboard-card skeleton-card">
+                <div className="card-header">
+                  <div className="skeleton-card-title">
+                    <div className="skeleton-icon"></div>
+                    <div className="skeleton-text skeleton-text--title"></div>
+                  </div>
+                </div>
+                <div className="card-content">
+                  <div className="skeleton-list">
+                    {[1, 2, 3].map((i) => (
+                      <div key={i} className="skeleton-item">
+                        <div className="skeleton-flag"></div>
+                        <div className="skeleton-content">
+                          <div className="skeleton-text skeleton-text--name"></div>
+                          <div className="skeleton-text skeleton-text--subtitle"></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Country Groups Skeletons */}
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="dashboard-card skeleton-card">
+                  <div className="card-header">
+                    <div className="skeleton-card-title">
+                      <div className="skeleton-icon"></div>
+                      <div className="skeleton-text skeleton-text--title"></div>
+                    </div>
+                    <div className="skeleton-chevron"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
