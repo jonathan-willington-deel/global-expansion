@@ -25,6 +25,7 @@ function App() {
 
   // Debug: Log that the App component is rendering
   console.log('App component rendering, loading:', loading, 'mapData:', !!mapData)
+  console.log('App component state:', { loading, mapData: !!mapData, mapLoaded, selectedCountry })
 
   // Country coordinates for pins
   const countryCoordinates = {
