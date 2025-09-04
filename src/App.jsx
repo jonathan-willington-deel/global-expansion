@@ -246,7 +246,7 @@ function App() {
       console.log('Creating Mapbox map...')
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/light-v11',
+        style: 'mapbox://styles/jonathanwillington/cm8ym2u5b003d01r431z7872k',
         center: [0, 20], // Center of the world
         zoom: 2,
         maxZoom: 6 // Restrict maximum zoom to keep whole countries visible
@@ -285,11 +285,8 @@ function App() {
         // Small delay to ensure everything is ready
         setTimeout(() => {
           try {
-          // Add custom country highlighting based on status
-          map.current.addSource('countries', {
-            type: 'vector',
-            url: 'mapbox://mapbox.country-boundaries-v1'
-          })
+          // Add custom layers
+          addCustomLayers()
           
           // Debug: log some country names to see what properties are available
           map.current.on('sourcedata', (e) => {
@@ -304,49 +301,6 @@ function App() {
                 console.log('Sample country properties:', features[0].properties)
                 console.log('Available property keys:', Object.keys(features[0].properties))
               }
-            }
-          })
-
-          // Add initial country fill layer
-          map.current.addLayer({
-            id: 'country-fill',
-            type: 'fill',
-            source: 'countries',
-            'source-layer': 'country_boundaries',
-            paint: {
-              'fill-color': [
-                'case',
-                // CRITICAL countries (orange)
-                ['==', ['get', 'name_en'], 'United States'], '#ed5e2a',
-                ['==', ['get', 'name_en'], 'Netherlands'], '#ed5e2a',
-                ['==', ['get', 'name_en'], 'Germany'], '#ed5e2a',
-                // GROWTH countries (green)
-                ['==', ['get', 'name_en'], 'India'], '#22c55e',
-                ['==', ['get', 'name_en'], 'Poland'], '#22c55e',
-                ['==', ['get', 'name_en'], 'Bulgaria'], '#22c55e',
-                // OPPORTUNITY countries (blue)
-                ['==', ['get', 'name_en'], 'Philippines'], '#3b82f6',
-                ['==', ['get', 'name_en'], 'Vietnam'], '#3b82f6',
-                                  // COMPENSATION_MANAGEMENT countries (purple)
-                  ['==', ['get', 'name_en'], 'Paraguay'], '#8b5cf6',
-                  ['==', ['get', 'name_en'], 'Argentina'], '#8b5cf6',
-                  // CORPORATE_GOVERNANCE countries (amber)
-                  ['==', ['get', 'name_en'], 'South Africa'], '#f59e0b',
-                  'rgba(248, 249, 250, 0.05)' // Almost invisible for other countries
-              ],
-              'fill-opacity': 0.6
-            }
-          })
-
-          // Add country borders
-          map.current.addLayer({
-            id: 'country-borders',
-            type: 'line',
-            source: 'countries',
-            'source-layer': 'country_boundaries',
-            paint: {
-              'line-color': '#2d3436',
-              'line-width': 1
             }
           })
 
@@ -563,6 +517,70 @@ function App() {
     setSelectedComplianceArticle(null)
   }
 
+  const addCustomLayers = () => {
+    if (!map.current) return
+    
+    try {
+      // Add custom country highlighting based on status
+      if (!map.current.getSource('countries')) {
+        map.current.addSource('countries', {
+          type: 'vector',
+          url: 'mapbox://mapbox.country-boundaries-v1'
+        })
+      }
+      
+      // Add initial country fill layer
+      if (!map.current.getLayer('country-fill')) {
+        map.current.addLayer({
+          id: 'country-fill',
+          type: 'fill',
+          source: 'countries',
+          'source-layer': 'country_boundaries',
+          paint: {
+            'fill-color': [
+              'case',
+              // CRITICAL countries (orange)
+              ['==', ['get', 'name_en'], 'United States'], '#ed5e2a',
+              ['==', ['get', 'name_en'], 'Netherlands'], '#ed5e2a',
+              ['==', ['get', 'name_en'], 'Germany'], '#ed5e2a',
+              // GROWTH countries (green)
+              ['==', ['get', 'name_en'], 'India'], '#22c55e',
+              ['==', ['get', 'name_en'], 'Poland'], '#22c55e',
+              ['==', ['get', 'name_en'], 'Bulgaria'], '#22c55e',
+              // OPPORTUNITY countries (blue)
+              ['==', ['get', 'name_en'], 'Philippines'], '#3b82f6',
+              ['==', ['get', 'name_en'], 'Vietnam'], '#3b82f6',
+              // COMPENSATION_MANAGEMENT countries (purple)
+              ['==', ['get', 'name_en'], 'Paraguay'], '#8b5cf6',
+              ['==', ['get', 'name_en'], 'Argentina'], '#8b5cf6',
+              // CORPORATE_GOVERNANCE countries (amber)
+              ['==', ['get', 'name_en'], 'South Africa'], '#f59e0b',
+              'rgba(248, 249, 250, 0.05)' // Almost invisible for other countries
+            ],
+            'fill-opacity': 0.6
+          }
+        })
+      }
+
+      // Add country borders
+      if (!map.current.getLayer('country-borders')) {
+        map.current.addLayer({
+          id: 'country-borders',
+          type: 'line',
+          source: 'countries',
+          'source-layer': 'country_boundaries',
+          paint: {
+            'line-color': '#2d3436',
+            'line-width': 1
+          }
+        })
+      }
+    } catch (error) {
+      console.error('Error adding custom layers:', error)
+    }
+  }
+
+
   const getRiskColor = (riskLevel) => {
     switch (riskLevel) {
       case 'CRITICAL': return 'rgb(212, 45, 53)'
@@ -698,23 +716,26 @@ function App() {
       setHighlightedGroup(groupKey)
       setSelectedComplianceArticle(null) // Close compliance article when switching groups
       
-      // Scroll the expanded group into view after a short delay
-      setTimeout(() => {
+      // Scroll the expanded group into view with a more robust approach
+      const scrollToGroup = () => {
         const groupElement = document.querySelector(`[data-group="${groupKey}"]`)
         if (groupElement) {
-          const elementRect = groupElement.getBoundingClientRect()
           const sidebarContent = document.querySelector('.sidebar-content')
           if (sidebarContent) {
-            const sidebarRect = sidebarContent.getBoundingClientRect()
-            const scrollTop = sidebarContent.scrollTop
-            const targetPosition = scrollTop + elementRect.top - sidebarRect.top - 16
-            sidebarContent.scrollTo({
-              top: targetPosition,
-              behavior: 'smooth'
+            // Use scrollIntoView for more reliable behavior
+            groupElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+              inline: 'nearest'
             })
           }
         }
-      }, 200)
+      }
+      
+      // Try multiple times to ensure the DOM has updated
+      setTimeout(scrollToGroup, 100)
+      setTimeout(scrollToGroup, 400)
+      setTimeout(scrollToGroup, 700)
       
       // Fly to the first country in the group
       if (mapData?.map_data[groupKey]?.countries?.length > 0) {
@@ -840,6 +861,7 @@ function App() {
               <span className="legend-text">Corporate governance</span>
             </div>
           </div>
+
           
           {!mapLoaded && (
             <div className="map-loading">
