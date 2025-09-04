@@ -12,6 +12,7 @@ export default defineConfig({
     __HMR_PORT__: '24678',
     __HMR_HOSTNAME__: '"localhost"',
     __HMR_PROTOCOL__: '"ws"',
+    __HMR_BASE__: '"/global-expansion/"',
     __SERVER_HOST__: '"localhost"',
     __SERVER_PORT__: '5173',
     __DEV__: 'false',
