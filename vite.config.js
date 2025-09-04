@@ -7,6 +7,9 @@ export default defineConfig({
   base: '/global-expansion/',
   define: {
     __DEFINES__: JSON.stringify({}),
+    __HMR_CONFIG_NAME__: JSON.stringify('vite'),
+    __HMR_PORT__: JSON.stringify(24678),
+    __HMR_HOSTNAME__: JSON.stringify('localhost'),
     global: 'globalThis',
     'process.env': '{}',
   },
