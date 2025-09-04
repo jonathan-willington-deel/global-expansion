@@ -11,16 +11,11 @@ export default defineConfig({
     'process.env': '{}',
   },
   build: {
-    target: 'es2015',
+    target: 'es2020',
     rollupOptions: {
       output: {
         manualChunks: undefined,
       },
-    },
-  },
-  esbuild: {
-    define: {
-      __DEFINES__: '{}',
     },
   },
   optimizeDeps: {
