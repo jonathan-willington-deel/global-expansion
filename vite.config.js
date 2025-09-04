@@ -15,7 +15,6 @@ export default defineConfig({
     __SERVER_PORT__: '5173',
     __DEV__: 'false',
     __PROD__: 'true',
-    global: 'globalThis',
   },
   build: {
     target: 'es2020',
