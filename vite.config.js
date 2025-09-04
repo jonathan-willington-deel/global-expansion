@@ -2,10 +2,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
   base: '/global-expansion/',
-  define: {
+  define: mode === 'production' ? {
     __DEFINES__: '{}',
     __BASE__: '"/global-expansion/"',
     __HMR_BASE__: '"/global-expansion/"',
@@ -21,6 +21,8 @@ export default defineConfig({
     __WS_TOKEN__: '""',
     __DEV__: 'false',
     __PROD__: 'true',
+  } : {
+    __DEFINES__: '{}',
   },
   build: {
     target: 'es2020',
@@ -33,4 +35,4 @@ export default defineConfig({
   optimizeDeps: {
     include: ['mapbox-gl'],
   },
-})
+}))
