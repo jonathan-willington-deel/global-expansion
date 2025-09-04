@@ -14,7 +14,7 @@
   gap: 12px;
   height: var(--topnav-height);
   padding: 0 16px;
-  color: var(--topnav-text);
+  color: rgb(97, 97, 97);
   position: relative;
   z-index: 10;
 }
@@ -27,7 +27,7 @@
 .topnav__center { justify-content: center; }
 .topnav__right { justify-content: flex-end; gap: 8px; }
 
-.topnav__logo { color: var(--topnav-text); display: inline-flex; }
+.topnav__logo { color: black; display: inline-flex; }
 
 .topnav__divider {
   width: 1px;
@@ -56,12 +56,32 @@
   gap: 8px;
   padding: 10px 12px;
   border-radius: 12px;
-  color: var(--topnav-text);
+  color: rgb(97, 97, 97);
   text-decoration: none;
 }
 /* Removed hover backgrounds */
-.topnav__link-icon svg { width: 20px; height: 24px; }
+.topnav__link-icon svg { width: 20px; height: 24px; color: rgb(97, 97, 97); }
 .topnav__link-label { font-weight: 500; font-size: 14px; }
+
+.topnav__org-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: black;
+}
+
+.topnav__org-sub {
+  font-size: 12px;
+  color: var(--topnav-muted);
+  text-align: left;
+}
+
+.topnav__org-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+}
 
 .topnav__iconbtn {
   position: relative;
@@ -69,16 +89,17 @@
   align-items: center;
   gap: 8px;
   padding: 8px 10px;
-  border-radius: 12px;
+  border-radius: 62px;
+  background-color: rgba(27, 27, 27, 0.1);
 }
-.topnav__icon svg { width: 24px; height: 24px; }
+.topnav__icon svg { width: 24px; height: 24px; color: rgb(97, 97, 97); }
 .topnav__kbd { font-size: 12px; color: var(--topnav-muted); }
 .topnav__iconbtn--badge { padding-right: 12px; }
 .topnav__badge {
   position: absolute;
   top: -4px;
   right: -4px;
-  background: var(--topnav-primary);
+  background: red;
   color: #fff;
   border-radius: 999px;
   font-size: 12px;
@@ -89,5 +110,6 @@
   width: 40px; height: 40px; border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
   font-weight: 700;
+  background-color: rgba(27, 27, 27, 0.1);
 }
 

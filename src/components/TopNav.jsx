@@ -1,4 +1,5 @@
 import React from 'react'
+import Chevron from './Chevron'
 import './TopNav.css'
 
 function Divider() {
@@ -27,7 +28,7 @@ function OrgSwitcher() {
         <span className="topnav__org-sub">All groups</span>
       </span>
       <span className="topnav__chevron" aria-hidden>
-        <svg viewBox="0 0 24 24"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg>
+        <Chevron expanded={false} size={20} color="var(--topnav-muted)" style={{transform: 'rotate(90deg)'}} />
       </span>
     </button>
   )
@@ -84,7 +85,7 @@ export default function TopNav() {
         <button className="topnav__more">
           <span className="topnav__link-icon" aria-hidden><IconDots /></span>
           <span className="topnav__link-label">More</span>
-          <span className="topnav__chevron" aria-hidden><svg viewBox="0 0 24 24"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg></span>
+          <span className="topnav__chevron" aria-hidden><Chevron expanded={false} size={20} color="var(--topnav-muted)" style={{transform: 'rotate(90deg)'}} /></span>
         </button>
       </div>
       <div className="topnav__right">

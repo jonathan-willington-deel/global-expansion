@@ -7,8 +7,10 @@ const countryCodeMap = {
   'Netherlands': 'NL', 
   'Germany': 'DE',
   'India': 'IN',
-  'Ukraine': 'UA',
+  'Poland': 'PL',
+  'Bulgaria': 'BG',
   'Philippines': 'PH',
+  'Vietnam': 'VN',
   'Paraguay': 'PY',
   'Argentina': 'AR',
   'South Africa': 'ZA'

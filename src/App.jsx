@@ -7,6 +7,7 @@ import TopNav from './components/TopNav'
 
 import { AlertTriangle, TrendingUp, Users, Building2, DollarSign, MapPin } from 'lucide-react'
 import Flag from './components/Flag'
+import Chevron from './components/Chevron'
 import './App.css'
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
   const [mapLoaded, setMapLoaded] = useState(false)
   const [expandedGroups, setExpandedGroups] = useState({})
   const [highlightedGroup, setHighlightedGroup] = useState(null)
+  const [expandedAccordions, setExpandedAccordions] = useState({})
+  const [selectedComplianceArticle, setSelectedComplianceArticle] = useState(null)
 
   // Country coordinates for pins
   const countryCoordinates = {
@@ -26,11 +29,28 @@ function App() {
     'Netherlands': [5.2913, 52.1326],
     'Germany': [10.4515, 51.1657],
     'India': [78.9629, 20.5937],
-    'Ukraine': [31.1656, 48.3794],
+    'Poland': [19.1342, 51.9194],
+    'Bulgaria': [25.4858, 42.7339],
     'Philippines': [121.7740, 12.8797],
+    'Vietnam': [108.2772, 14.0583],
     'Paraguay': [-58.4438, -23.4425],
     'Argentina': [-63.6167, -38.4161],
     'South Africa': [24.9916, -30.5595]
+  }
+
+  // Country zoom levels based on size (larger countries = lower zoom)
+  const countryZoomLevels = {
+    'United States': 3,    // Very large country
+    'India': 3,           // Very large country
+    'Argentina': 3,       // Large country
+    'South Africa': 3,    // Large country
+    'Germany': 4,         // Medium-large country
+    'Poland': 4,          // Medium country
+    'Bulgaria': 4,        // Medium country
+    'Vietnam': 4,         // Medium country
+    'Philippines': 4,     // Medium country
+    'Paraguay': 4,        // Medium country
+    'Netherlands': 5      // Small country
   }
 
   useEffect(() => {
@@ -119,13 +139,10 @@ function App() {
                   ['==', ['get', 'name_en'], 'Germany']
                 ]
               ],
-              '#dc2626', // Darker red for CRITICAL hover
+              '#d1451b', // Darker orange for CRITICAL hover
               ['all',
                 ['boolean', ['feature-state', 'hover'], false],
-                ['any',
-                  ['==', ['get', 'name_en'], 'India'],
-                  ['==', ['get', 'name_en'], 'Ukraine']
-                ]
+                ['==', ['get', 'name_en'], 'India']
               ],
               '#16a34a', // Darker green for GROWTH hover
               ['all',
@@ -147,19 +164,23 @@ function App() {
                 ...(highlightedCountries.length > 0 ? [
                   // CRITICAL countries
                   ['==', ['get', 'name_en'], 'United States'], 
-                  highlightedCountries.includes('United States') ? '#ef4444' : '#9ca3af',
+                  highlightedCountries.includes('United States') ? '#ed5e2a' : '#9ca3af',
                   ['==', ['get', 'name_en'], 'Netherlands'], 
-                  highlightedCountries.includes('Netherlands') ? '#ef4444' : '#9ca3af',
+                  highlightedCountries.includes('Netherlands') ? '#ed5e2a' : '#9ca3af',
                   ['==', ['get', 'name_en'], 'Germany'], 
-                  highlightedCountries.includes('Germany') ? '#ef4444' : '#9ca3af',
+                  highlightedCountries.includes('Germany') ? '#ed5e2a' : '#9ca3af',
                   // GROWTH countries
                   ['==', ['get', 'name_en'], 'India'], 
                   highlightedCountries.includes('India') ? '#22c55e' : '#9ca3af',
-                  ['==', ['get', 'name_en'], 'Ukraine'], 
-                  highlightedCountries.includes('Ukraine') ? '#22c55e' : '#9ca3af',
+                  ['==', ['get', 'name_en'], 'Poland'], 
+                  highlightedCountries.includes('Poland') ? '#22c55e' : '#9ca3af',
+                  ['==', ['get', 'name_en'], 'Bulgaria'], 
+                  highlightedCountries.includes('Bulgaria') ? '#22c55e' : '#9ca3af',
                   // OPPORTUNITY countries
                   ['==', ['get', 'name_en'], 'Philippines'], 
                   highlightedCountries.includes('Philippines') ? '#3b82f6' : '#9ca3af',
+                  ['==', ['get', 'name_en'], 'Vietnam'], 
+                  highlightedCountries.includes('Vietnam') ? '#3b82f6' : '#9ca3af',
                   // COMPENSATION_MANAGEMENT countries
                   ['==', ['get', 'name_en'], 'Paraguay'], 
                   highlightedCountries.includes('Paraguay') ? '#8b5cf6' : '#9ca3af',
@@ -170,12 +191,14 @@ function App() {
                   highlightedCountries.includes('South Africa') ? '#f59e0b' : '#9ca3af'
                 ] : [
                   // Normal colors when no highlighting
-                  ['==', ['get', 'name_en'], 'United States'], '#ef4444',
-                  ['==', ['get', 'name_en'], 'Netherlands'], '#ef4444',
-                  ['==', ['get', 'name_en'], 'Germany'], '#ef4444',
+                  ['==', ['get', 'name_en'], 'United States'], '#ed5e2a',
+                  ['==', ['get', 'name_en'], 'Netherlands'], '#ed5e2a',
+                  ['==', ['get', 'name_en'], 'Germany'], '#ed5e2a',
                   ['==', ['get', 'name_en'], 'India'], '#22c55e',
-                  ['==', ['get', 'name_en'], 'Ukraine'], '#22c55e',
+                  ['==', ['get', 'name_en'], 'Poland'], '#22c55e',
+                  ['==', ['get', 'name_en'], 'Bulgaria'], '#22c55e',
                   ['==', ['get', 'name_en'], 'Philippines'], '#3b82f6',
+                  ['==', ['get', 'name_en'], 'Vietnam'], '#3b82f6',
                   ['==', ['get', 'name_en'], 'Paraguay'], '#8b5cf6',
                   ['==', ['get', 'name_en'], 'Argentina'], '#8b5cf6'
                 ]),
@@ -293,15 +316,17 @@ function App() {
             paint: {
               'fill-color': [
                 'case',
-                // CRITICAL countries (red)
-                ['==', ['get', 'name_en'], 'United States'], '#ef4444',
-                ['==', ['get', 'name_en'], 'Netherlands'], '#ef4444',
-                ['==', ['get', 'name_en'], 'Germany'], '#ef4444',
+                // CRITICAL countries (orange)
+                ['==', ['get', 'name_en'], 'United States'], '#ed5e2a',
+                ['==', ['get', 'name_en'], 'Netherlands'], '#ed5e2a',
+                ['==', ['get', 'name_en'], 'Germany'], '#ed5e2a',
                 // GROWTH countries (green)
                 ['==', ['get', 'name_en'], 'India'], '#22c55e',
-                ['==', ['get', 'name_en'], 'Ukraine'], '#22c55e',
+                ['==', ['get', 'name_en'], 'Poland'], '#22c55e',
+                ['==', ['get', 'name_en'], 'Bulgaria'], '#22c55e',
                 // OPPORTUNITY countries (blue)
                 ['==', ['get', 'name_en'], 'Philippines'], '#3b82f6',
+                ['==', ['get', 'name_en'], 'Vietnam'], '#3b82f6',
                                   // COMPENSATION_MANAGEMENT countries (purple)
                   ['==', ['get', 'name_en'], 'Paraguay'], '#8b5cf6',
                   ['==', ['get', 'name_en'], 'Argentina'], '#8b5cf6',
@@ -362,8 +387,6 @@ function App() {
               let expectedColor = 'rgba(248, 249, 250, 0.05)' // Default light gray
               if (['United States', 'India', 'Brazil'].includes(countryName)) {
                 expectedColor = '#6c5ce7' // Purple for scale
-              } else if (countryName === 'Ukraine') {
-                expectedColor = '#e74c3c' // Red for crisis
               } else if (['Philippines', 'Poland', 'Mexico'].includes(countryName)) {
                 expectedColor = '#3498db' // Blue for high opportunity
               } else if (['Germany', 'France'].includes(countryName)) {
@@ -420,9 +443,20 @@ function App() {
                   new mapboxgl.Popup({ offset: 25 })
                     .setHTML(`
                       <div style="padding: 12px;">
-                        <h3 style="margin: 0 0 8px 0; color: ${groupColor}; display: flex; align-items: center;">${getFlagHTML(country.country, country.code)} ${country.country}</h3>
+                        <h3 style="margin: 0 0 4px 0; color: ${groupColor}; display: flex; align-items: center;">${getFlagHTML(country.country, country.code)} ${country.title || country.country}</h3>
+                        <p style="margin: 0 0 8px 0; font-size: 12px; color: #666; font-weight: 500;">${country.country}</p>
                         <p style="margin: 0 0 5px 0; font-weight: 600;">${country.category}</p>
                         <p style="margin: 0 0 8px 0; font-size: 13px; color: #666;">${country.issue}</p>
+                        ${country.salary ? `
+                          <div style="margin: 8px 0; padding: 8px; background: #f8f9fa; border-radius: 4px;">
+                            <div style="font-size: 11px; font-weight: 600; color: #374151; margin-bottom: 4px;">Salary Ranges (USD):</div>
+                            ${Object.entries(country.salary).map(([role, range]) => `
+                              <div style="font-size: 10px; color: #6b7280; margin-bottom: 2px;">
+                                <span style="text-transform: capitalize; font-weight: 500;">${role.replace('_', ' ')}:</span> ${range}
+                              </div>
+                            `).join('')}
+                          </div>
+                        ` : ''}
                         ${country.recommended_actions?.[0] ? `
                           <div style="margin-top: 8px; padding: 6px 8px; background: ${groupColor}15; border-radius: 4px;">
                             <strong style="color: ${groupColor};">Action:</strong> ${country.recommended_actions[0].action}
@@ -446,7 +480,27 @@ function App() {
       }
 
       // Add pins after a short delay to ensure map data is available
-      setTimeout(addCountryPins, 100)
+      setTimeout(() => {
+        addCountryPins()
+        // After markers are created, apply current highlighting if any
+        if (highlightedGroup) {
+          const updateMarkerColors = () => {
+            if (!window.countryMarkers) return
+            
+            window.countryMarkers.forEach(({ marker, groupKey, originalColor }) => {
+              if (highlightedGroup) {
+                // If this marker's group is highlighted, keep original color, otherwise make it grey
+                const newColor = groupKey === highlightedGroup ? originalColor : '#9ca3af'
+                marker.getElement().style.filter = groupKey === highlightedGroup ? 'none' : 'grayscale(100%)'
+              } else {
+                // No highlighting, restore original colors
+                marker.getElement().style.filter = 'none'
+              }
+            })
+          }
+          updateMarkerColors()
+        }
+      }, 100)
 
       console.log('Country pins and layers added successfully')
       
@@ -483,10 +537,12 @@ function App() {
     if (!map.current) return
     
     const coordinates = countryCoordinates[countryName]
+    const zoomLevel = countryZoomLevels[countryName] || 4 // Default zoom for unknown countries
+    
     if (coordinates) {
       map.current.flyTo({
         center: coordinates,
-        zoom: 5, // Slightly reduced to ensure whole country is visible
+        zoom: zoomLevel, // Dynamic zoom based on country size
         duration: 2000
       })
       setSelectedCountry(countryName)
@@ -497,6 +553,14 @@ function App() {
     console.log(`Taking action: ${actionType} - ${actionUrl}`)
     // In a real app, this would navigate to the Deel platform
     alert(`This would navigate to: ${actionUrl}`)
+  }
+
+  const handleComplianceArticleClick = (article) => {
+    setSelectedComplianceArticle(article)
+  }
+
+  const closeComplianceArticle = () => {
+    setSelectedComplianceArticle(null)
   }
 
   const getRiskColor = (riskLevel) => {
@@ -531,7 +595,7 @@ function App() {
 
   const getGroupIcon = (groupKey) => {
     switch (groupKey) {
-      case 'CRITICAL': return <AlertTriangle className="w-6 h-6 text-red-700" style={{strokeWidth: 2.5}} />
+      case 'CRITICAL': return <AlertTriangle className="w-6 h-6" style={{strokeWidth: 2.5, color: '#ed5e2a'}} />
       case 'HIGH': return <AlertTriangle className="w-6 h-6 text-orange-700" style={{strokeWidth: 2.5}} />
       case 'GROWTH': return <TrendingUp className="w-6 h-6 text-green-700" style={{strokeWidth: 2.5}} />
       case 'OPPORTUNITY': return <MapPin className="w-6 h-6 text-blue-700" style={{strokeWidth: 2.5}} />
@@ -552,7 +616,7 @@ function App() {
     switch (groupKey) {
       case 'CRITICAL': return 'Compliance risks'
       case 'HIGH': return 'High'
-      case 'GROWTH': return 'Growth'
+      case 'GROWTH': return 'Grow existing work hubs'
       case 'OPPORTUNITY': return 'Hire in new territories'
       case 'COMPENSATION_MANAGEMENT': return 'Compensation management'
       case 'CORPORATE_GOVERNANCE': return 'Corporate governance'
@@ -562,7 +626,7 @@ function App() {
 
   const getGroupColor = (groupKey) => {
     switch (groupKey) {
-      case 'CRITICAL': return '#ef4444'
+      case 'CRITICAL': return '#ed5e2a'
       case 'HIGH': return '#f97316'
       case 'GROWTH': return '#22c55e'
       case 'OPPORTUNITY': return '#3b82f6'
@@ -578,8 +642,10 @@ function App() {
     'Netherlands': 'NL', 
     'Germany': 'DE',
     'India': 'IN',
-    'Ukraine': 'UA',
+    'Poland': 'PL',
+    'Bulgaria': 'BG',
     'Philippines': 'PH',
+    'Vietnam': 'VN',
     'Paraguay': 'PY',
     'Argentina': 'AR',
     'South Africa': 'ZA'
@@ -599,26 +665,23 @@ function App() {
     return <Flag countryName={countryName} countryCode={countryCode} size="w-6 h-6" />
   }
 
-  // Toggle group expansion
+  // Toggle accordion expansion
+  const toggleAccordion = (accordionId) => {
+    setExpandedAccordions(prev => ({
+      ...prev,
+      [accordionId]: !prev[accordionId]
+    }))
+  }
+
+  // Toggle group expansion (only one group open at a time)
   const toggleGroup = (groupKey) => {
     const isCurrentlyExpanded = expandedGroups[groupKey]
     
-    setExpandedGroups(prev => ({
-      ...prev,
-      [groupKey]: !prev[groupKey]
-    }))
-    
-    // Set highlight when expanding, remove when collapsing
-    if (!isCurrentlyExpanded) {
-      setHighlightedGroup(groupKey)
-      
-      // Fly to the first country in the group
-      if (mapData?.map_data[groupKey]?.countries?.length > 0) {
-        const firstCountry = mapData.map_data[groupKey].countries[0].country
-        flyToCountry(firstCountry)
-      }
-    } else {
+    if (isCurrentlyExpanded) {
+      // If clicking on the currently expanded group, close it
+      setExpandedGroups({})
       setHighlightedGroup(null)
+      setSelectedComplianceArticle(null) // Close compliance article
       
       // Reset map view to show all countries
       if (map.current) {
@@ -628,6 +691,40 @@ function App() {
           duration: 2000
         })
         setSelectedCountry(null)
+      }
+    } else {
+      // If clicking on a different group, close all others and open this one
+      setExpandedGroups({ [groupKey]: true })
+      setHighlightedGroup(groupKey)
+      setSelectedComplianceArticle(null) // Close compliance article when switching groups
+      
+      // Scroll the expanded group into view after a short delay
+      setTimeout(() => {
+        const groupElement = document.querySelector(`[data-group="${groupKey}"]`)
+        if (groupElement) {
+          const elementRect = groupElement.getBoundingClientRect()
+          const sidebarContent = document.querySelector('.sidebar-content')
+          if (sidebarContent) {
+            const sidebarRect = sidebarContent.getBoundingClientRect()
+            const scrollTop = sidebarContent.scrollTop
+            const targetPosition = scrollTop + elementRect.top - sidebarRect.top - 16
+            sidebarContent.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            })
+          }
+        }
+      }, 200)
+      
+      // Fly to the first country in the group
+      if (mapData?.map_data[groupKey]?.countries?.length > 0) {
+        const firstCountry = mapData.map_data[groupKey].countries[0]
+        flyToCountry(firstCountry.country)
+        
+        // For CRITICAL group, automatically show the compliance article for the first country
+        if (groupKey === 'CRITICAL' && firstCountry.compliance_article) {
+          handleComplianceArticleClick(firstCountry.compliance_article)
+        }
       }
     }
   }
@@ -674,11 +771,56 @@ function App() {
             className="map-display"
           />
           
+          {/* Compliance Article Card */}
+          {selectedComplianceArticle && (
+            <div className="compliance-article-card">
+              <div className="compliance-article-content">
+                <button 
+                  className="compliance-article-close"
+                  onClick={closeComplianceArticle}
+                  aria-label="Close article"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+                
+                <div className="compliance-article-image">
+                  <img 
+                    src={selectedComplianceArticle.feature_image} 
+                    alt={selectedComplianceArticle.title}
+                    style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '8px' }}
+                  />
+                </div>
+                
+                <div className="compliance-article-header">
+                  <h3 className="compliance-article-title">{selectedComplianceArticle.title}</h3>
+                  <p className="compliance-article-description">{selectedComplianceArticle.description}</p>
+                </div>
+                
+                <div className="compliance-article-actions">
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="compliance-article-button"
+                    onClick={() => {
+                      console.log('Navigate to compliance monitor')
+                      alert('This would navigate to the compliance monitor')
+                    }}
+                  >
+                    View in compliance monitor
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+          
           {/* Map Legend */}
           <div className="map-legend">
             <div className="legend-title">Country Categories</div>
             <div className="legend-item">
-              <div className="legend-color" style={{ backgroundColor: '#ef4444' }}></div>
+              <div className="legend-color" style={{ backgroundColor: '#ed5e2a' }}></div>
               <span className="legend-text">Compliance Risks</span>
             </div>
             <div className="legend-item">
@@ -815,7 +957,7 @@ function App() {
 
                     {/* Country Groupings */}
           {mapData.map_data && Object.entries(mapData.map_data).map(([groupKey, group]) => (
-                            <div key={groupKey} className={`dashboard-card dashboard-card--${groupKey.toLowerCase()}`} style={{ backgroundColor: getRiskBackgroundColor(groupKey) }}>
+                            <div key={groupKey} className={`dashboard-card dashboard-card--${groupKey.toLowerCase()} ${expandedGroups[groupKey] ? 'expanded' : ''}`} data-group={groupKey}>
                 <div 
                   className="card-header clickable-header"
                   onClick={(e) => {
@@ -835,18 +977,17 @@ function App() {
                     {getGroupDisplayName(groupKey)}
                   </div>
                   <button 
-                    className={`section-accordion-button ${expandedGroups[groupKey] ? 'expanded' : ''}`}
+                    className="section-accordion-button"
                     onClick={(e) => {
                       e.stopPropagation();
                       toggleGroup(groupKey);
                     }}
                   >
-                    {expandedGroups[groupKey] ? '▲' : '▼'}
+                    <Chevron expanded={expandedGroups[groupKey]} size={16} color="#6b7280" />
                   </button>
                 </div>
                 
-                {expandedGroups[groupKey] && (
-                  <div className="card-content">
+                <div className={`card-content ${expandedGroups[groupKey] ? 'expanded' : ''}`}>
                     {/* Group explanation - only visible when expanded */}
                     <div className="group-explanation">
                       {groupKey === 'CRITICAL' && 'Immediate action required to avoid legal penalties and financial risks'}
@@ -860,7 +1001,19 @@ function App() {
                     {(group.countries || group.entities || []).slice(0, 3).map((item, index) => (
                       <div 
                         key={index}
-                        onClick={() => flyToCountry(item.country)}
+                        onClick={() => {
+                          if (groupKey === 'CRITICAL' && item.compliance_article) {
+                            // If the same article is already open, close it
+                            if (selectedComplianceArticle && selectedComplianceArticle.title === item.compliance_article.title) {
+                              closeComplianceArticle()
+                            } else {
+                              handleComplianceArticleClick(item.compliance_article)
+                            }
+                            flyToCountry(item.country)
+                          } else {
+                            flyToCountry(item.country)
+                          }
+                        }}
                         className={`country-item ${
                           selectedCountry === item.country ? 'country-item--selected' : ''
                         }`}
@@ -871,22 +1024,24 @@ function App() {
                           </div>
                           <div className="country-info">
                             <h4 className="country-name">
-                              {item.country}
+                              {item.title || item.country}
                             </h4>
+                            <p className="country-location text-xs text-gray-500">
+                              {item.country}
+                            </p>
 
                           </div>
                         </div>
         
                         {groupKey !== 'COMPENSATION_MANAGEMENT' && groupKey !== 'CRITICAL' && (
                           <div className="country-details">
-                            {item.category && `${item.category}`}
-                            {item.issue && ` • ${item.issue.substring(0, 50)}...`}
+                            {item.issue}
                           </div>
                         )}
 
                         {/* Workers at risk - only for compliance countries */}
                         {groupKey === 'CRITICAL' && item.workers_at_risk && (
-                          <div className="growth-metrics">
+                          <div className={`growth-metrics ${expandedAccordions[`critical-${index}`] ? 'expanded' : ''}`}>
                             <div className="metric-row metric-row--header">
                               <div className="metric-label">Workers at risk</div>
                               <div className="metric-value">{item.workers_at_risk.count}</div>
@@ -894,11 +1049,10 @@ function App() {
                                 className="accordion-button"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  const metricsContainer = e.target.closest('.growth-metrics');
-                                  metricsContainer.classList.toggle('expanded');
+                                  toggleAccordion(`critical-${index}`);
                                 }}
                               >
-                                ▼
+                                <Chevron expanded={expandedAccordions[`critical-${index}`]} size={12} color="#6b7280" />
                               </button>
                             </div>
                             <div className="metric-accordion">
@@ -937,7 +1091,7 @@ function App() {
                         
                         {/* Growth-specific metrics */}
                         {groupKey === 'GROWTH' && item.growth_metrics && (
-                          <div className="growth-metrics">
+                          <div className={`growth-metrics ${expandedAccordions[`growth-${index}`] ? 'expanded' : ''}`}>
                             <div className="metric-row metric-row--header">
                               <div className="metric-label">Current Employees</div>
                               <div className="metric-value">{item.growth_metrics.current_headcount}</div>
@@ -945,11 +1099,10 @@ function App() {
                                 className="accordion-button"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  const metricsContainer = e.target.closest('.growth-metrics');
-                                  metricsContainer.classList.toggle('expanded');
+                                  toggleAccordion(`growth-${index}`);
                                 }}
                               >
-                                ▼
+                                <Chevron expanded={expandedAccordions[`growth-${index}`]} size={12} color="#6b7280" />
                               </button>
                             </div>
                             <div className="metric-accordion">
@@ -975,7 +1128,7 @@ function App() {
 
                         {/* High-specific metrics */}
                         {groupKey === 'HIGH' && (
-                          <div className="growth-metrics">
+                          <div className={`growth-metrics ${expandedAccordions[`high-${index}`] ? 'expanded' : ''}`}>
                             <div className="metric-row metric-row--header">
                               <div className="metric-label">Risk Level</div>
                               <div className="metric-value">{item.category || 'N/A'}</div>
@@ -983,11 +1136,10 @@ function App() {
                                 className="accordion-button"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  const metricsContainer = e.target.closest('.growth-metrics');
-                                  metricsContainer.classList.toggle('expanded');
+                                  toggleAccordion(`high-${index}`);
                                 }}
                               >
-                                ▼
+                                <Chevron expanded={expandedAccordions[`high-${index}`]} size={12} color="#6b7280" />
                               </button>
                             </div>
                             <div className="metric-accordion">
@@ -1013,19 +1165,20 @@ function App() {
                             <div className="metric-row metric-row--header">
                               <div className="metric-label">Compensation Irregularity</div>
                               <div className="metric-value">{item.comp_irregularity || 'N/A'}</div>
-                              <div className={`trend-indicator ${item.comp_irregularity?.includes('above') ? 'trend-indicator--high' : 'trend-indicator--low'}`}>
-                                {item.comp_irregularity?.includes('above') ? (
-                                  <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
-                                    <path d="M1 11L4 8L8 9L15 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                    <path d="M11 1H15V5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                  </svg>
-                                ) : (
-                                  <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
-                                    <path d="M15 1L12 4L8 3L1 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                    <path d="M5 11H1V7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                  </svg>
-                                )}
+                              <div className="trend-indicator trend-indicator--low">
+                                <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+                                  <path d="M15 1L12 4L8 3L1 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                  <path d="M5 11H1V7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
                               </div>
+                            </div>
+                            <div className="metric-row">
+                              <div className="metric-label">Most impacted job titles</div>
+                              <div className="metric-value">{item.most_impacted_job_titles || 'N/A'}</div>
+                            </div>
+                            <div className="metric-row">
+                              <div className="metric-label">Employees at risk of churn</div>
+                              <div className="metric-value">{item.employees_at_risk_of_churn || 'N/A'}</div>
                             </div>
                           </div>
                         )}
@@ -1056,19 +1209,18 @@ function App() {
 
                         {/* Opportunity-specific metrics */}
                         {groupKey === 'OPPORTUNITY' && (
-                          <div className="growth-metrics">
+                          <div className={`growth-metrics ${expandedAccordions[`opportunity-${index}`] ? 'expanded' : ''}`}>
                             <div className="metric-row metric-row--header">
-                              <div className="metric-label">Average Salary</div>
-                              <div className="metric-value">{item.average_salary || 'N/A'}</div>
+                              <div className="metric-label">Cost Savings</div>
+                              <div className="metric-value">70-80%</div>
                               <button 
                                 className="accordion-button"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  const metricsContainer = e.target.closest('.growth-metrics');
-                                  metricsContainer.classList.toggle('expanded');
+                                  toggleAccordion(`opportunity-${index}`);
                                 }}
                               >
-                                ▼
+                                <Chevron expanded={expandedAccordions[`opportunity-${index}`]} size={12} color="#6b7280" />
                               </button>
                             </div>
                             <div className="metric-accordion">
@@ -1076,10 +1228,12 @@ function App() {
                                 <div className="metric-label">Category</div>
                                 <div className="metric-value">{item.category || 'N/A'}</div>
                               </div>
-                              <div className="metric-row">
-                                <div className="metric-label">Cost Savings</div>
-                                <div className="metric-value">70-80%</div>
-                              </div>
+                              {item.salary && Object.entries(item.salary).map(([role, range]) => (
+                                <div key={role} className="metric-row">
+                                  <div className="metric-label" style={{ textTransform: 'capitalize' }}>{role.replace('_', ' ')}</div>
+                                  <div className="metric-value">{range}</div>
+                                </div>
+                              ))}
                             </div>
                           </div>
                         )}
@@ -1112,8 +1266,7 @@ function App() {
                       </div>
                     )}
                   </div>
-                  </div>
-                )}
+                </div>
               </div>
             ))}
 
@@ -1163,6 +1316,7 @@ function App() {
           </div>
       </div>
       </div>
+
     </div>
   )
 }

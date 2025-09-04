@@ -213,6 +213,7 @@ body {
   flex: 1;
   overflow-y: auto;
   padding: 16px;
+  scroll-behavior: smooth;
 }
 
 .sidebar-title {
@@ -236,12 +237,21 @@ body {
   margin-bottom: 16px;
   border: 1px solid transparent;
   padding: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.dashboard-card.expanded {
+  background-color: rgb(245, 245, 245);
 }
 
 /* Status-based card styling */
 .dashboard-card--critical {
-  background-color: rgb(250, 250, 250) !important;
+  background-color: rgb(250, 250, 250);
   border-color: transparent;
+}
+
+.dashboard-card--critical.expanded {
+  background-color: rgb(245, 245, 245) !important;
 }
 
 /* HIGH styling moved to enhanced section below */
@@ -259,14 +269,14 @@ body {
 }
 
 .card-title {
-  font-family: inter;
+  font-family: 'Bagoss';
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   color: #1f2937;
   display: flex;
   align-items: center;
   gap: 16px;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.3px;
 }
 
 .clickable-header {
@@ -285,7 +295,7 @@ body {
   font-size: 12px;
   line-height: 16px;
   color: rgb(97, 97, 97);
-  margin: 16px 0 0 0;
+  margin: 8px 0 0 0;
   padding: 0;
   white-space: normal;
   overflow: visible;
@@ -305,6 +315,7 @@ body {
 
 .card-content {
   /* Content inherits padding from parent card */
+  position: relative;
 }
 
 /* ===== STATISTICS GRIDS ===== */
@@ -408,7 +419,7 @@ body {
 
 /* Status-based title styling */
 .dashboard-card--critical .group-title {
-  color: rgb(239, 68, 68);
+  color: #ed5e2a;
 }
 
 .dashboard-card--high .group-title {
@@ -463,8 +474,8 @@ body {
 
 /* Status-based icon styling - with colored backgrounds closer to full color */
 .dashboard-card--critical .group-icon {
-  background-color: rgba(239, 68, 68, 0.15);
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background-color: #ffe27c;
+  border: 1px solid rgba(237, 94, 42, 0.3);
 }
 
 .dashboard-card--high .group-icon {
@@ -520,28 +531,48 @@ body {
 
 /* New color definitions for enhanced status styling */
 .dashboard-card--high {
-  background-color: rgb(250, 250, 250) !important;
+  background-color: rgb(250, 250, 250);
   border-color: transparent;
+}
+
+.dashboard-card--high.expanded {
+  background-color: rgb(245, 245, 245) !important;
 }
 
 .dashboard-card--opportunity {
-  background-color: rgb(250, 250, 250) !important;
+  background-color: rgb(250, 250, 250);
   border-color: transparent;
+}
+
+.dashboard-card--opportunity.expanded {
+  background-color: rgb(245, 245, 245) !important;
 }
 
 .dashboard-card--growth {
-  background-color: rgb(250, 250, 250) !important;
+  background-color: rgb(250, 250, 250);
   border-color: transparent;
+}
+
+.dashboard-card--growth.expanded {
+  background-color: rgb(245, 245, 245) !important;
 }
 
 .dashboard-card--compensation_management {
-  background-color: rgb(250, 250, 250) !important;
+  background-color: rgb(250, 250, 250);
   border-color: transparent;
 }
 
+.dashboard-card--compensation_management.expanded {
+  background-color: rgb(245, 245, 245) !important;
+}
+
 .dashboard-card--corporate_governance {
-  background-color: rgb(250, 250, 250) !important;
+  background-color: rgb(250, 250, 250);
   border-color: transparent;
+}
+
+.dashboard-card--corporate_governance.expanded {
+  background-color: rgb(245, 245, 245) !important;
 }
 
 .group-stats {
@@ -617,11 +648,21 @@ body {
 }
 
 .country-name {
-  font-family: 'Bagoss', sans-serif;
-  font-size: 15px;
-  font-weight: 500;
+  font-family: Inter;
+  font-size: 14px;
+  letter-spacing: -0.2px;
+  font-weight: 600;
   color: #1f2937;
   margin-bottom: 4px;
+  line-height: 20px;
+  /* max-width: 84%; */
+}
+
+.country-location {
+  font-size: 11px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .country-details {
@@ -632,7 +673,8 @@ body {
   line-height: 16px;
   letter-spacing: 0px;
   color: rgb(97, 97, 97);
-  margin-bottom: 8px;
+  margin-bottom: 16px;
+  margin-top: 16px;
 }
 
 /* Growth metrics styling */
@@ -766,22 +808,37 @@ body {
   background-color: rgba(16, 185, 129, 0.1);
 }
 
+.dashboard-card--compensation_management .trend-indicator--low {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
 /* Accordion button styling */
 .accordion-button {
   background: none;
   border: none;
-  color: #3b82f6;
+  color: #6b7280;
   font-size: 12px;
   cursor: pointer;
-  padding: 2px 4px;
-  border-radius: 3px;
-  transition: all 0.2s ease;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 300ms ease;
   position: absolute;
   right: 0;
+  width: 24px;
+  height: 24px;
 }
 
 .accordion-button:hover {
-  background-color: rgba(59, 130, 246, 0.1);
+  background-color: rgba(107, 114, 128, 0.15);
+}
+
+.accordion-button:focus {
+  outline: none;
+  background-color: rgba(107, 114, 128, 0.1);
 }
 
 /* Accordion content */
@@ -795,9 +852,7 @@ body {
   max-height: 200px;
 }
 
-.growth-metrics.expanded .accordion-button {
-  transform: rotate(180deg);
-}
+/* Chevron rotation handled by Chevron component */
 
 /* Section accordion button styling */
 .section-accordion-button {
@@ -806,29 +861,43 @@ body {
   color: #6b7280;
   font-size: 14px;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 300ms ease;
+  position: relative;
 }
 
-.section-accordion-button:hover {
+/* Hover effect on the entire clickable header */
+.clickable-header:hover .section-accordion-button {
+  background-color: rgba(107, 114, 128, 0.15);
+}
+
+.section-accordion-button:focus {
+  outline: none;
   background-color: rgba(107, 114, 128, 0.1);
 }
 
-.section-accordion-button.expanded {
-  transform: rotate(180deg);
-}
+/* Chevron rotation handled by Chevron component */
 
-/* Section content collapsed state */
-.card-content.collapsed {
+/* Section content with premium animations */
+.card-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: max-height, opacity, transform;
+  padding-top: 0;
 }
 
-.card-content {
-  max-height: 1000px;
-  transition: max-height 0.3s ease;
+.card-content.expanded {
+  max-height: 2000px;
+  opacity: 1;
+  transform: translateY(0);
+  padding-top: 16px;
 }
 
 .country-actions {
@@ -979,4 +1048,98 @@ body {
   .stats-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ===== COMPLIANCE ARTICLE CARD ===== */
+.compliance-article-card {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 320px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.compliance-article-content {
+  padding: 16px;
+  position: relative;
+}
+
+.compliance-article-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  color: #6b7280;
+  transition: background-color 0.2s ease;
+  z-index: 10;
+}
+
+.compliance-article-close:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.compliance-article-image {
+  margin-bottom: 16px;
+}
+
+.compliance-article-header {
+  margin-bottom: 16px;
+}
+
+.compliance-article-title {
+  font-family: 'Bagoss', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.compliance-article-description {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.compliance-article-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.compliance-article-button {
+  font-size: 12px;
+  height: 32px;
+  padding: 0 16px;
+  background-color: #e5e7eb;
+  border-color: #e5e7eb;
+  color: #374151;
+  transition: all 0.2s ease;
+}
+
+.compliance-article-button:hover {
+  background-color: #d1d5db;
+  border-color: #d1d5db;
+  transform: translateY(-1px);
 }

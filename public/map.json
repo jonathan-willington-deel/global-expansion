@@ -12,6 +12,7 @@
       "padding": "tight",
       "countries": [
         {
+          "title": "Convert contractors to PEO",
           "country": "United States",
           "code": "US",
           "category": "Contractor Compliance Risk",
@@ -25,6 +26,12 @@
             "title": "IRS Contractor Classification Guidelines 2024",
             "url": "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee"
           },
+          "compliance_article": {
+            "title": "Understanding IRS Contractor Classification Risks",
+            "description": "The IRS has strict guidelines for determining whether workers should be classified as employees or independent contractors. Misclassification can result in significant penalties, backdated taxes, and legal complications.",
+            "feature_image": "https://www.nationsencyclopedia.com/photos/united-states-of-america-1087.jpg",
+            "content": "The Internal Revenue Service (IRS) uses a 20-factor test to determine worker classification, focusing on behavioral control, financial control, and the relationship between parties. Recent enforcement actions have increased scrutiny on contractor relationships, particularly in technology and professional services sectors. Companies must ensure their contractor agreements and working arrangements align with IRS guidelines to avoid costly reclassification penalties."
+          },
           "recommended_actions": [
             {
               "action": "Change to PEO",
@@ -36,6 +43,7 @@
           ]
         },
         {
+          "title": "Convert contractors to employees",
           "country": "Netherlands",
           "code": "NL",
           "category": "Contractor Compliance Risk",
@@ -49,6 +57,12 @@
             "title": "Dutch DBA Act Employment Classification",
             "url": "https://www.government.nl/topics/self-employed-persons-without-personnel-zzp/new-evaluation-of-employment-relationships-dba"
           },
+          "compliance_article": {
+            "title": "Dutch DBA Act: Contractor Compliance Requirements",
+            "description": "The Dutch DBA Act (Deregulation Assessment of Employment Relationships Act) automatically classifies certain contractor relationships as employment. Understanding these rules is crucial for compliance.",
+            "feature_image": "https://i.natgeofe.com/n/e2f26e6b-8255-4391-84be-4b0919d4c0d8/20240626-0349-Jonathan%20Irish-NGCW-CITI-AA-Amsterdam-_7R52855.jpg",
+            "content": "The DBA Act was introduced to prevent false self-employment and ensure proper social security contributions. Under this law, contractors who work primarily for one client or lack entrepreneurial risk are automatically deemed employees. This classification triggers retroactive social security obligations and can result in significant financial penalties for companies that fail to comply with the 7-day conversion requirement."
+          },
           "recommended_actions": [
             {
               "action": "Change to Employees",
@@ -59,6 +73,7 @@
           ]
         },
         {
+          "title": "Switch contractors to EOR",
           "country": "Germany",
           "code": "DE",
           "category": "Contractor Compliance Risk",
@@ -71,6 +86,12 @@
           "reference_article": {
             "title": "Scheinselbständigkeit Compliance Guide 2024",
             "url": "https://www.gesetze-im-internet.de/sgb_4/__7.html"
+          },
+          "compliance_article": {
+            "title": "German Scheinselbständigkeit: Employment Classification Rules",
+            "description": "Germany's Scheinselbständigkeit (false self-employment) regulations are becoming increasingly strict. Understanding the criteria for genuine self-employment is essential for compliance.",
+            "feature_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Museumsinsel_Berlin_Juli_2021_1_%28cropped%29.jpg/1200px-Museumsinsel_Berlin_Juli_2021_1_%28cropped%29.jpg",
+            "content": "Scheinselbständigkeit occurs when someone appears to be self-employed but is actually economically dependent on a single client, making them effectively an employee. German authorities use a three-pillar test focusing on personal dependence, integration into business operations, and economic dependence. Recent enforcement actions have targeted technology companies and professional services, making EOR solutions increasingly important for maintaining compliance."
           },
           "recommended_actions": [
             {
@@ -86,10 +107,11 @@
       "padding": "tight",
       "countries": [
         {
+          "title": "Scale AI team with top talent",
           "country": "India",
           "code": "IN",
           "category": "Growth Opportunity",
-          "issue": "Exceptional talent pool delivering 4.8/5 performance with 65% cost savings. Prime opportunity to scale AI capabilities with world-class engineers.",
+          "issue": "Average tenure of 2.8 years with strong comparative performance in recent Q325 PMC. Team demonstrates exceptional commitment and consistent high-quality delivery.",
           "growth_metrics": {
             "current_headcount": "12 engineers",
             "performance_rating": "4.8/5.0",
@@ -107,10 +129,11 @@
           ]
         },
         {
-          "country": "Ukraine",
-          "code": "UA",
+          "title": "Increase your pool of hire performers",
+          "country": "Poland",
+          "code": "PL",
           "category": "Existing Market Expansion",
-          "issue": "Outstanding 4.9/5 performance with 96% retention and 70% cost savings. Untapped potential for blockchain and cybersecurity expansion in a proven market.",
+          "issue": "Average tenure of 3.2 years with strong comparative performance in recent Q325 PMC. Established team showing consistent excellence and deep market expertise.",
           "growth_metrics": {
             "current_headcount": "8 engineers",
             "performance_rating": "4.9/5.0",
@@ -126,6 +149,28 @@
               "deel_feature": "talent_marketplace"
             }
           ]
+        },
+        {
+          "title": "Expand development team",
+          "country": "Bulgaria",
+          "code": "BG",
+          "category": "Growth Opportunity",
+          "issue": "Average tenure of 2.1 years with strong comparative performance in recent Q325 PMC. Growing team demonstrating solid technical capabilities and reliable delivery.",
+          "growth_metrics": {
+            "current_headcount": "6 developers",
+            "performance_rating": "4.7/5.0",
+            "cost_savings": "60% vs UK/US hires",
+            "time_to_hire": "12 days average",
+            "retention_rate": "92%",
+            "skill_availability": "High - Backend/DevOps specialists"
+          },
+          "recommended_actions": [
+            {
+              "action": "Scale team",
+              "description": "Hire 12 more developers to expand backend capabilities.",
+              "deel_feature": "talent_marketplace"
+            }
+          ]
         }
       ]
     },
@@ -133,15 +178,41 @@
       "padding": "tight",
       "countries": [
         {
+          "title": "Expand customer support operations",
           "country": "Philippines",
           "code": "PH",
           "category": "Talent Opportunity",
           "issue": "Premium customer support and QA talent available at 75% cost savings. Ideal for 24/7 operations with English proficiency and cultural alignment.",
+          "salary": {
+            "customer_support": "$8,000 - $12,000 USD",
+            "qa_engineer": "$10,000 - $15,000 USD",
+            "team_lead": "$15,000 - $20,000 USD"
+          },
           "recommended_actions": [
             {
               "action": "Add to workforce planning",
               "description": "Open a support centre with 10 hires for 24/7 coverage.",
               "deel_feature": "workforce_planning"
+            }
+          ]
+        },
+        {
+          "title": "Scale development team with competitive rates",
+          "country": "Vietnam",
+          "code": "VN",
+          "category": "Talent Opportunity",
+          "issue": "Strong technical talent pool with excellent English proficiency and competitive rates. Growing tech ecosystem with 80% cost savings compared to Western markets.",
+          "salary": {
+            "software_engineer": "$6,000 - $10,000 USD",
+            "senior_developer": "$8,000 - $14,000 USD",
+            "tech_lead": "$12,000 - $18,000 USD",
+            "product_manager": "$10,000 - $16,000 USD"
+          },
+          "recommended_actions": [
+            {
+              "action": "Scale team",
+              "description": "Hire 15 developers to expand technical capabilities.",
+              "deel_feature": "talent_marketplace"
             }
           ]
         }
@@ -151,27 +222,33 @@
       "padding": "tight",
       "countries": [
         {
+          "title": "Pay fallen below local market rate",
           "country": "Paraguay",
           "code": "PY",
           "category": "Compensation Management",
-          "issue": "Compensation 23% above market rate. Optimize salary structure to improve cost efficiency while maintaining competitive positioning in local talent market.",
-          "comp_irregularity": "23% above market average",
+          "issue": "Compensation 23% below market rate. Urgent salary adjustment required to retain talent and meet local employment standards.",
+          "comp_irregularity": "23% below market average",
+          "most_impacted_job_titles": "Software Engineers, Product Managers",
+          "employees_at_risk_of_churn": "12 employees",
           "recommended_actions": [
             {
-              "action": "Analyze",
+              "action": "Review",
               "deel_feature": "compensation_analytics"
             }
           ]
         },
         {
+          "title": "Pay fallen below local market rate",
           "country": "Argentina",
           "code": "AR",
           "category": "Compensation Management",
           "issue": "Compensation 31% below market rate amid high inflation. Urgent salary adjustment required to retain talent and meet local employment standards.",
           "comp_irregularity": "31% below market average",
+          "most_impacted_job_titles": "Data Scientists, UX Designers",
+          "employees_at_risk_of_churn": "18 employees",
           "recommended_actions": [
             {
-              "action": "Adjust",
+              "action": "Review",
               "deel_feature": "compensation_analytics"
             }
           ]
@@ -182,6 +259,7 @@
       "padding": "tight",
       "countries": [
         {
+          "title": "Implement governance compliance",
           "country": "South Africa",
           "code": "ZA",
           "category": "Entity Establishment",
