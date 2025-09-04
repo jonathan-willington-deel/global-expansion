@@ -1,11 +1,11 @@
 /* ===== FONT FACE DECLARATIONS ===== */
 @font-face {
   font-family: 'Bagoss';
-  src: url('/Bagoss-Medium.woff2') format('woff2'),
-       url('/Bagoss-Medium.woff') format('woff'),
-       url('/Bagoss-Medium.ttf') format('truetype'),
-       url('/Bagoss-Medium.otf') format('opentype'),
-       url('/Bagoss-Medium.eot') format('embedded-opentype');
+  src: url('/global-expansion/Bagoss-Medium.woff2') format('woff2'),
+       url('/global-expansion/Bagoss-Medium.woff') format('woff'),
+       url('/global-expansion/Bagoss-Medium.ttf') format('truetype'),
+       url('/global-expansion/Bagoss-Medium.otf') format('opentype'),
+       url('/global-expansion/Bagoss-Medium.eot') format('embedded-opentype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
